@@ -1,0 +1,23 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Coin-convertor</title>
+</head>
+<body>
+
+<h1>Conversion form</h1>
+<div>
+    <form action="#" th:action="@{convert}" method="post" th:object="${conversion}">
+        <label th:for="nameFrom">From currency:</label>
+        <input th:name="nameFrom" type="text" placeholder="USD" th:value="*{nameFrom}"/>
+        <label th:for="nameTo">To currency:</label>
+        <input th:name="nameTo" type="text" placeholder="EUR" th:value="*{nameTo}"/>
+        <label th:for="amount">amount</label>
+        <input th:name="amount" type="text" placeholder="1" th:value="*{amount}"/>
+        <button type="submit">Let the magic happen!</button>
+    </form>
+</div>
+<h1 th:text="'Result: ' + ${result}"></h1>
+</body>
+</html>
