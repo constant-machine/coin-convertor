@@ -1,4 +1,4 @@
-package com.coins.plugins
+package com.coins.config
 
 import io.ktor.serialization.jackson.*
 import io.ktor.server.plugins.contentnegotiation.*

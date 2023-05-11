@@ -1,6 +1,6 @@
-package com.coins.plugins
+package com.coins.config
 
-import com.coins.mapping.ObjectMapping
+import com.coins.service.MappingService
 import com.coins.model.ConversionModel
 import com.coins.service.ConversionService
 import io.ktor.server.thymeleaf.Thymeleaf
@@ -22,6 +22,7 @@ fun Application.configureTemplating() {
     }
 
     val conversionService: ConversionService by inject()
+    val mappingService: MappingService by inject()
     val defaultModel = ConversionModel("USD", "EUR", "1")
 
     routing {
@@ -34,7 +35,7 @@ fun Application.configureTemplating() {
         post("/convert") {
             val result: Double
             try {
-                val model = ObjectMapping.parseFormData(call.receiveText())
+                val model = mappingService.parseFormData(call.receiveText())
                 result = conversionService.convertCurrencies(model)
                 call.respond(ThymeleafContent("index",
                     mapOf("result" to result, "conversion" to model)))

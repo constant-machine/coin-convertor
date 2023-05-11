@@ -1,10 +1,13 @@
 package com.coins
 
+import com.coins.config.ClientProperties
 import com.coins.model.ConversionModel
 import kotlin.test.*
 import io.ktor.http.*
 import com.coins.service.ClientFCA
 import com.coins.service.FCAConversionService
+import com.coins.service.MappingServiceImpl
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.utils.io.*
@@ -22,7 +25,12 @@ class ConversionServiceTest {
                     headers = headersOf(HttpHeaders.ContentType, "application/json")
                 )
             }
-            val mockClient = ClientFCA(HttpClient(mockEngine))
+
+            val mockClient = ClientFCA(
+                HttpClient(mockEngine),
+                ClientProperties("", ""),
+                MappingServiceImpl(jacksonObjectMapper())
+            )
             val clientFCA = FCAConversionService(mockClient)
 
             val defaultModel = ConversionModel("USD", "EUR", "1")
